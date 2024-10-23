@@ -1,3 +1,6 @@
+# https://www.reddit.com/r/wiz/comments/1582jfx/guide_to_controlling_a_wiz_lightplug_via_windows/
+# https://seanmcnally.net/wiz-config.html
+
 from flask import Flask, render_template, request, jsonify
 import subprocess
 
