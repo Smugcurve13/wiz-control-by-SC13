@@ -2,6 +2,7 @@
 # https://seanmcnally.net/wiz-config.html
 
 from flask import Flask, render_template, request, jsonify
+from flask.views import MethodView
 import subprocess
 
 app = Flask(__name__)
@@ -10,13 +11,23 @@ app = Flask(__name__)
 BULB_IP = "192.168.1.4"
 PORT = "38899"
 
-def send_command(command):
-    # Ensure proper escaping
-    command_str = f'echo {command} | ncat -u -w 1 {BULB_IP} {PORT}'
-    result = subprocess.run(command_str, shell=True, capture_output=True, text=True)
-    print(f"Sent command: {command_str}")  # Debugging
-    print(f"Output: {result.stdout}")  # Debugging
-    return result.stdout
+log_path = "logs.txt"
+
+class Command:
+    def get_and_store_command(self):
+        self.command_str = f'echo {self.command} | ncat -u -w 1 {BULB_IP} {PORT}'
+        with open('logs.txt','w') as file:
+            file.write(self.command_str)
+        return self.command_str
+
+    def send_command(self):
+        # Ensure proper escaping
+        result = subprocess.run(self.command_str, shell=True, capture_output=True, text=True)
+        print(f"Sent command: {self.command_str}")  # Debugging
+        print(f"Output: {result.stdout}")  # Debugging
+        return result.stdout
+
+command = Command()
 
 @app.route('/')
 def index():
@@ -27,7 +38,7 @@ def control():
     data = request.json
     command = data.get('command')
     print(f"Received command: {command}")  # Debugging
-    response = send_command(command)
+    response = command.send_command(command)
     print(f"Response: {response}")  # Debugging
     return jsonify({"response": response})
 
