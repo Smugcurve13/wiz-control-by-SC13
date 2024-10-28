@@ -1,0 +1,5 @@
+echo {"method":"setPilot","params":{"state":true}} | ncat -u -w 1 192.168.1.4 38899
+echo {"method":"setPilot","params":{"state":false}} | ncat -u -w 1 192.168.1.4 38899
+echo {"method":"setPilot","params":{"dimming":100}} | ncat -u -w 1 192.168.1.4 38899
+echo {"method":"setPilot","params":{"temp":6279}} | ncat -u -w 1 192.168.1.4 38899
+echo {"method":"setPilot","params":{"r":175,"g":24,"b":24}} | ncat -u -w 1 192.168.1.4 38899
