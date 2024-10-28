@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 
 # Lightbulb's IP address
-BULB_IP = "192.168.1.4"
+BULB_IP = "192.168.1.18"
 PORT = "38899"
 
 log_path = "logs.txt"
