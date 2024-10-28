@@ -53,12 +53,5 @@ def control():
     print(f"Response: {response}")  # Debugging
     return jsonify({"response": response})
 
-@app.route('/control', methods=['POST'])
-def control_light():
-    command = request.json['command']
-    log_command_to_db(command)  # Log command in a database
-    # Send the command to the light device
-    return jsonify({'status': 'success'})
-
 if __name__ == '__main__':
     app.run(debug=True)
