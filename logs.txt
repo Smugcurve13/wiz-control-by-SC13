@@ -32,3 +32,17 @@ echo {"method":"setPilot","params":{"dimming":60}} | ncat -u -w 1 192.168.1.18 3
 echo {"method":"setPilot","params":{"dimming":67}} | ncat -u -w 1 192.168.1.18 38899
 echo {"method":"setPilot","params":{"dimming":86}} | ncat -u -w 1 192.168.1.18 38899
 echo {"method":"setPilot","params":{"dimming":100}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":100}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":92}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":97}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5411}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5376}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5357}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5330}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5264}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5237}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":96}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":97}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"dimming":100}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":2802}} | ncat -u -w 1 192.168.1.18 38899
+echo {"method":"setPilot","params":{"temp":5424}} | ncat -u -w 1 192.168.1.18 38899
