@@ -1,0 +1,45 @@
+Small Features to Tackle First:
+Custom Light Presets:
+
+Allow users to save and name favorite settings (e.g., "Reading Mode," "Relax Mode") and apply them with a single click.
+Light Timer:
+
+Add a feature to schedule when the light should turn on or off (e.g., "Turn off in 30 minutes" or "Turn on at 7 PM").
+Group Control:
+
+If you have multiple WiZ lights, allow control of multiple bulbs at once (e.g., "Turn all lights on" or adjust brightness for all).
+Real-Time Sync:
+
+Implement WebSocket or Server-Sent Events to reflect real-time changes if the app is being controlled from multiple devices.
+Dark Mode for UI:
+
+Add a toggle for dark mode to make the app more visually versatile.
+Medium-Sized Additions:
+Voice Control Integration:
+
+Add integration with Google Assistant, Alexa, or Siri shortcuts for voice commands.
+Custom RGB Picker:
+
+Add a more interactive color picker (e.g., a color wheel) instead of just the input field for RGB values.
+Power Usage Stats:
+
+Display estimated power consumption based on brightness and color settings.
+Mobile-Friendly Optimization:
+
+Ensure the app is responsive and works seamlessly on mobile devices.
+Preparing for a Long-Term, Always-Running App:
+User Authentication:
+
+Add a simple login system to secure the app if accessed outside your local network.
+Deployment to a Server:
+
+Use services like Heroku, AWS, or a Raspberry Pi to make the app accessible from anywhere.
+Data Persistence:
+
+Use a database to save user preferences, light schedules, and logs of light usage.
+API Endpoints:
+
+Expose an API so you (or others) can programmatically control your lights.
+Event Automations:
+
+Integrate with APIs like IFTTT to trigger light changes based on events (e.g., weather, calendar reminders).
