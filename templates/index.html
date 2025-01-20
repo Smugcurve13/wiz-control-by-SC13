@@ -28,9 +28,25 @@
             flex-direction: column;
             color: white;
         }
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        button.dark-mode {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .slider.dark-mode, .navbar.dark-mode {
+            background-color: #1a1a1a;
+            color: #333333;
+        }
     </style>
 </head>
 <body>
+    <div class="dark-mode-toggle">
+        <button id="dark-mode-btn" class="btn btn-secondary">Enable Dark Mode</button>
+    </div>
+
     <div class="bg-image">
     <h1 class="fw-bold mt-4">WiZ Light Control</h1>
 
