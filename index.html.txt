@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiZ Smart Light Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5.5.2/dist/iro.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .btn-power {
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .btn-on {
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            border: none;
+        }
+        
+        .btn-off {
+            background: linear-gradient(to right, #f78ca0 0%, #f9748f 50%, #fd868c 100%);
+            border: none;
+        }
+        
+        .slider-value {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .form-range::-webkit-slider-thumb {
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .form-range::-moz-range-thumb {
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .form-range::-ms-thumb {
+            background: #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        #colorPicker {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .control-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .control-label i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card p-4 mb-4">
+                    <h1 class="text-center mb-4">WiZ Smart Light Control</h1>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="light-icon" style="font-size: 3rem;">
+                            💡
+                        </div>
+                    </div>
+                    
+                    <!-- Power Control Section -->
+                    <div class="mb-4">
+                        <h3 class="section-title">Power</h3>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button id="btnOn" class="btn btn-power btn-on btn-lg px-4">
+                                <i class="bi bi-power"></i> Turn On
+                            </button>
+                            <button id="btnOff" class="btn btn-power btn-off btn-lg px-4">
+                                <i class="bi bi-power"></i> Turn Off
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Brightness Control Section -->
+                    <div class="mb-4">
+                        <h3 class="section-title">Brightness</h3>
+                        <div class="mb-2">
+                            <label class="control-label">
+                                <i class="bi bi-brightness-high"></i> Brightness: 
+                                <span id="brightnessValue" class="slider-value ms-2">50%</span>
+                            </label>
+                        </div>
+                        <input type="range" class="form-range" min="0" max="100" value="50" id="brightnessSlider">
+                    </div>
+                    
+                    <!-- Color Temperature Control Section -->
+                    <div class="mb-4">
+                        <h3 class="section-title">Color Temperature</h3>
+                        <div class="mb-2">
+                            <label class="control-label">
+                                <i class="bi bi-thermometer-sun"></i> Temperature: 
+                                <span id="tempValue" class="slider-value ms-2">4600K</span>
+                            </label>
+                        </div>
+                        <input type="range" class="form-range" min="2700" max="6500" value="4600" id="tempSlider">
+                    </div>
+                    
+                    <!-- RGB Color Picker Section -->
+                    <div class="mb-4">
+                        <h3 class="section-title">Color</h3>
+                        <div id="colorPicker"></div>
+                        <div class="mt-3 text-center">
+                            <span class="slider-value me-2">RGB:</span>
+                            <span id="rgbValue" class="slider-value">255, 255, 255</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize color picker
+        const colorPicker = new iro.ColorPicker("#colorPicker", {
+            width: 250,
+            color: "#ffffff",
+            borderWidth: 2,
+            borderColor: "#fff",
+            layout: [
+                { 
+                    component: iro.ui.Wheel,
+                    options: {}
+                },
+                { 
+                    component: iro.ui.Slider,
+                    options: {
+                        sliderType: 'value'
+                    }
+                }
+            ]
+        });
+
+        // Current state
+        let currentState = {
+            power: false,
+            brightness: 50,
+            temp: 4600,
+            color: { r: 255, g: 255, b: 255 }
+        };
+
+        // DOM elements
+        const btnOn = document.getElementById('btnOn');
+        const btnOff = document.getElementById('btnOff');
+        const brightnessSlider = document.getElementById('brightnessSlider');
+        const brightnessValue = document.getElementById('brightnessValue');
+        const tempSlider = document.getElementById('tempSlider');
+        const tempValue = document.getElementById('tempValue');
+        const rgbValue = document.getElementById('rgbValue');
+
+        // Event listeners
+        btnOn.addEventListener('click', () => {
+            currentState.power = true;
+            sendCommand(`{"method":"setPilot","params":{"state":true}}`);
+            updateUI();
+        });
+
+        btnOff.addEventListener('click', () => {
+            currentState.power = false;
+            sendCommand(`{"method":"setPilot","params":{"state":false}}`);
+            updateUI();
+        });
+
+        brightnessSlider.addEventListener('input', () => {
+            currentState.brightness = parseInt(brightnessSlider.value);
+            brightnessValue.textContent = `${currentState.brightness}%`;
+            
+            if (currentState.power) {
+                sendCommand(`{"method":"setPilot","params":{"dimming":${currentState.brightness}}}`);
+            }
+        });
+
+        tempSlider.addEventListener('input', () => {
+            currentState.temp = parseInt(tempSlider.value);
+            tempValue.textContent = `${currentState.temp}K`;
+            
+            if (currentState.power) {
+                sendCommand(`{"method":"setPilot","params":{"temp":${currentState.temp}}}`);
+            }
+        });
+
+        colorPicker.on('color:change', (color) => {
+            currentState.color = color.rgb;
+            rgbValue.textContent = `${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}`;
+            
+            if (currentState.power) {
+                sendCommand(`{"method":"setPilot","params":{"r":${color.rgb.r},"g":${color.rgb.g},"b":${color.rgb.b}}}`);
+            }
+        });
+
+        // Update UI based on current state
+        function updateUI() {
+            if (currentState.power) {
+                btnOn.classList.add('active');
+                btnOff.classList.remove('active');
+            } else {
+                btnOn.classList.remove('active');
+                btnOff.classList.add('active');
+            }
+        }
+
+        // Send command to API
+        function sendCommand(command) {
+            fetch('/control', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    command: command
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Command failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Initialize UI
+        updateUI();
+    </script>
+</body>
+</html>
