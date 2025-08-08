@@ -2,7 +2,7 @@
 
 A Python Flask web application for controlling WiZ smart lights and plugs via a user-friendly web interface.
 
-![WiZ Control App](wiz%20app%20icon.png)
+<img src="wiz%20app%20icon.png" alt="WiZ Control App" width="64" height="64">
 
 ## Features
 
